@@ -16,13 +16,12 @@ from gcodeInterpreter import gcode
 @click.command()
 @click.option("--speed-x", "speedx", type=float, default=6000)
 @click.option("--speed-y", "speedy", type=float, default=6000)
-@click.option("--speed-z", "speedz", type=float, default=300)
 @click.option("--offset", "offset", type=(float, float), multiple=True)
 @click.option("--max-t", "maxt", type=int, default=10)
 @click.option("--g90-extruder", "g90_extruder", is_flag=True)
 @click.option("--progress", "progress", is_flag=True)
 @click.argument("path", type=click.Path(exists=True))
-def gcode_analysis(path, speedx, speedy, speedz, offset, maxt, g90_extruder, progress):
+def gcode_analysis(path, speedx, speedy, offset, maxt, g90_extruder, progress):
     offsets = offset
     if offsets is None:
         offsets = []
