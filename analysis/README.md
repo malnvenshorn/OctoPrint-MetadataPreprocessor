@@ -9,7 +9,8 @@ $ wget https://github.com/malnvenshorn/OctoPrint-MetadataPreprocessor/archive/ma
 $ unzip -j master.zip "OctoPrint-MetadataPreprocessor-master/analysis/*" -d analysis
 $ cd analysis
 $ virtualenv -p /usr/bin/python2 venv
-$ ./venv/bin/python setup.py install
+$ source venv/bin/activate
+$ python setup.py install
 ```
 
 ## Usage
