@@ -56,8 +56,4 @@ def gcode_analysis(path, speedx, speedy, speedz, offset, maxt, g90_extruder, pro
 
     shutil.move(dst_file.name, path)
 
-    click.echo("DONE:{}s".format(time.time() - start_time))
-
-
-if __name__ == "__main__":
-    gcode_analysis()
+    click.echo("Finished in {}s".format(time.time() - start_time))
