@@ -22,7 +22,6 @@ Usage: analysis [OPTIONS] PATH
 Options:
   --speed-x FLOAT
   --speed-y FLOAT
-  --speed-z FLOAT
   --offset <FLOAT FLOAT>...
   --max-t INTEGER
   --g90-extruder
