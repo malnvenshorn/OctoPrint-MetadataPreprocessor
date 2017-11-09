@@ -1,6 +1,10 @@
 # OctoPrint-MetadataPreprocessor
 
-This OctoPrint plugin uses metadata comments in gcode files to speed up the analyzing process on systems with limited resources like the raspberry pi. Currently it's just meant for testing and not for productional use.
+This OctoPrint plugin uses metadata comments in gcode files to speed up the analyzing process on systems with limited resources like the Raspberry PI.
+
+Just as an Example: Analyzing a 7MB gcode file on my Raspberry PI B+ took ~17min. With included metadata only 2s while generating the metadata itself took additional 8s on my laptop.
+
+Currently it's just meant for testing and not for productional use.
 
 ## How it works
 
