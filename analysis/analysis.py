@@ -49,14 +49,15 @@ def gcode_analysis(path, speedx, speedy, offset, maxt, g90_extruder, progress):
 
     ystr = yaml.safe_dump(interpreter.get_result(), default_flow_style=False, indent="    ", allow_unicode=True)
 
-    with open(path, "r") as src_file, tempfile("w", delete=False) as dst_file:
-        dst_file.write(";OCTOPRINT_METADATA\n")
+    with open(path) as fsrc, tempfile(delete=False) as fdst:
+        fdst.write(";OCTOPRINT_METADATA\n")
         for line in ystr.splitlines():
-            dst_file.write(";{}\n".format(line))
-        dst_file.write(";OCTOPRINT_METADATA_END\n")
-        dst_file.write("\n")
-        dst_file.write(src_file.read())
+            fdst.write(";{}\n".format(line))
+        fdst.write(";OCTOPRINT_METADATA_END\n")
+        fdst.write("\n")
+        chunk_size = 1024 * 1024 * 10  # 10MB
+        shutil.copyfileobj(fsrc, fdst, length=chunk_size)
 
-    shutil.move(dst_file.name, path)
+    shutil.move(fdst.name, path)
 
     click.echo("Finished in {}s".format(time.time() - start_time))
