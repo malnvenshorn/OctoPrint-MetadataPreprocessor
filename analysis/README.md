@@ -25,7 +25,6 @@ Options:
   --offset <FLOAT FLOAT>...
   --max-t INTEGER
   --g90-extruder
-  --progress
   --help                     Show this message and exit.
 ```
 
