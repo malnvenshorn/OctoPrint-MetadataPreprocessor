@@ -10,7 +10,7 @@ from setuptools import setup
 setup(
     name="analysis",
     version="0.1",
-    py_modules=["analysis"],
+    py_modules=["analysis", "gcodeInterpreter"],
     install_requires=[
         "Click>=6.2,<6.3",
         "PyYAML>=3.10,<3.11",
