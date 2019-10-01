@@ -10,7 +10,7 @@ plugin_version = "0.1.0"
 plugin_description = """Uses metadata comments in gcode files to speed up the analyzing process on systems with
                         limited resources like the raspberry pi """
 plugin_author = "Sven Lohrmann"
-plugin_author_email = "malnvenshorn@gmail.com"
+plugin_author_email = "malnvenshorn@mailbox.org"
 plugin_url = "https://github.com/malnvenshorn/OctoPrint-MetadataPreprocessor"
 plugin_license = "AGPLv3"
 plugin_requires = []
