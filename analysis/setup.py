@@ -9,7 +9,7 @@ from setuptools import setup
 
 setup(
     name="analysis",
-    version="0.1",
+    version="0.2",
     py_modules=["analysis", "gcodeInterpreter"],
     install_requires=[
         "Click>=7,<8",
