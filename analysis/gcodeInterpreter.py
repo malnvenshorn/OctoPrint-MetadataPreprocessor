@@ -1,4 +1,5 @@
 # coding=utf-8
+# flake8: noqa
 from __future__ import absolute_import, division, print_function
 __author__ = "Gina Häußge <osd@foosel.net> based on work by David Braam"
 __license__ = 'GNU Affero General Public License http://www.gnu.org/licenses/agpl.html'
