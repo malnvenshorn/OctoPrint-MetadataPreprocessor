@@ -1,13 +1,14 @@
 # Analysis
 
-Script to analyze the gcode and to add the metadata to the beginning of the file.
+Script to generate the gcode metadata.
 
 ## Installation
 
 ```
+$ mkdir -p ~/.Slic3r/utils/gcode_metadata
+$ cd ~/.Slic3r/utils/gcode_metadata
 $ wget https://github.com/malnvenshorn/OctoPrint-MetadataPreprocessor/archive/master.zip
-$ unzip -j master.zip "OctoPrint-MetadataPreprocessor-master/analysis/*" -d analysis
-$ cd analysis
+$ unzip -j master.zip "OctoPrint-MetadataPreprocessor-master/analysis/*" -d .
 $ virtualenv -p /usr/bin/python2 venv
 $ source venv/bin/activate
 $ python setup.py install
@@ -30,4 +31,14 @@ Options:
 
 ## Slic3r
 
-You can easily integrate the analysis script in your workflow with slic3r. Simply add the absolute path of the script under the [post-processing scripts](http://manual.slic3r.org/advanced/post-processing) option. The absolute path of the generated gcode file will automatically passed to the script. If you want to supply arguments, e.g. `--g90-extruder`, you need to write a wrapper script.
+You can easily integrate the analysis script in your workflow with slic3r. Simply add the absolute path of the script under the [post-processing scripts](http://manual.slic3r.org/advanced/post-processing) option.
+
+![Screenshot](https://raw.githubusercontent.com/malnvenshorn/OctoPrint-MetadataPreprocessor/blob/master/docs/slic3r.png)
+
+If you want to supply arguments, e.g. `--g90-extruder`, you need to write a wrapper script. I placed mine under `~/.Slic3r/utils/gcode_metadata/generate_octoprint_metadata.sh`, see screenshot above.
+
+```
+#!/bin/bash
+
+~/scripts/gcode_metadata/venv/bin/analysis --g90-extruder "$@"
+```
