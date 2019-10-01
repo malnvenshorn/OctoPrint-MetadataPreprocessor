@@ -12,8 +12,8 @@ setup(
     version="0.1",
     py_modules=["analysis", "gcodeInterpreter"],
     install_requires=[
-        "Click>=6.2,<6.3",
-        "PyYAML>=3.10,<3.11",
+        "Click>=7,<8",
+        "PyYAML>=5.1,<6",
     ],
     entry_points="""
         [console_scripts]
