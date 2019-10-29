@@ -12,7 +12,7 @@ If the gcode is uploaded the plugin stops the gcode analysis started by OctoPrin
 
 ## Installation
 
-To install the analysis script refer to the [README](https://github.com/malnvenshorn/OctoPrint-MetadataPreprocessor/blob/master/analysis/README.md) in the _analysis_ directory.
+To install the analysis script go to the [wiki](https://github.com/malnvenshorn/OctoPrint-MetadataPreprocessor/wiki).
 
 The OctoPrint plugin can be installed via the bundled [Plugin Manager](https://github.com/foosel/OctoPrint/wiki/Plugin:-Plugin-Manager) or manually using this URL:
 
