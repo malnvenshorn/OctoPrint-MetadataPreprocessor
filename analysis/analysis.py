@@ -41,14 +41,14 @@ def gcode_analysis(path, speedx, speedy, offset, maxt, g90_extruder):
                      max_extruders=maxt,
                      g90_extruder=g90_extruder)
 
-    ystr = yaml.safe_dump(interpreter.get_result(), default_flow_style=False, indent="    ", allow_unicode=True)
+    ystr = yaml.safe_dump(interpreter.get_result(), default_flow_style=False, indent=4, allow_unicode=True)
 
-    with open(path) as fsrc, tempfile(delete=False) as fdst:
-        fdst.write(";OCTOPRINT_METADATA\n")
+    with open(path, mode="rb") as fsrc, tempfile(delete=False) as fdst:
+        fdst.write(";OCTOPRINT_METADATA\n".encode('utf-8'))
         for line in ystr.splitlines():
-            fdst.write(";{}\n".format(line))
-        fdst.write(";OCTOPRINT_METADATA_END\n")
-        fdst.write("\n")
+            fdst.write(";{}\n".format(line).encode('utf-8'))
+        fdst.write(";OCTOPRINT_METADATA_END\n".encode('utf-8'))
+        fdst.write("\n".encode('utf-8'))
         chunk_size = 1024 * 1024 * 10  # 10MB
         shutil.copyfileobj(fsrc, fdst, length=chunk_size)
 

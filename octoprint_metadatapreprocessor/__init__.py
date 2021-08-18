@@ -87,7 +87,7 @@ class MetadataPreprocessorPlugin(octoprint.plugin.EventHandlerPlugin):
                     result["estimatedPrintTime"] = analysis["total_time"] * 60
                 if analysis["extrusion_length"]:
                     result["filament"] = dict()
-                    for i in xrange(len(analysis["extrusion_length"])):
+                    for i in range(len(analysis["extrusion_length"])):
                         result["filament"]["tool%d" % i] = {
                             "length": analysis["extrusion_length"][i],
                             "volume": analysis["extrusion_volume"][i]
@@ -119,6 +119,7 @@ class MetadataPreprocessorPlugin(octoprint.plugin.EventHandlerPlugin):
 
 
 __plugin_name__ = "Metadata Preprocessor"
+__plugin_pythoncompat__ = ">=2.7,<4"
 
 
 def __plugin_load__():

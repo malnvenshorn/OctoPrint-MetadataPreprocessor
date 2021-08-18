@@ -19,4 +19,5 @@ setup(
         [console_scripts]
         analysis=analysis:gcode_analysis
     """,
+    author="awenelo, Sven Lohrmann"
 )

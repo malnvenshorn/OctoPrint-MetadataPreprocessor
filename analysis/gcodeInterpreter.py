@@ -1,18 +1,24 @@
 # coding=utf-8
 # flake8: noqa
 from __future__ import absolute_import, division, print_function
+
 __author__ = "Gina Häußge <osd@foosel.net> based on work by David Braam"
 __license__ = 'GNU Affero General Public License http://www.gnu.org/licenses/agpl.html'
 __copyright__ = "Copyright (C) 2013 David Braam, Gina Häußge - Released under terms of the AGPLv3 License"
 
-
 import math
 import os
+import io
+import sys
 import base64
 import zlib
 import logging
 import codecs
 
+# Set file to be io.IOBase if we're in python 3, to allow checks for if an object is a file object to continue the same way.
+if sys.version_info[0] == 3:
+    from io import IOBase
+    file = IOBase
 
 class Vector3D(object):
 	"""
