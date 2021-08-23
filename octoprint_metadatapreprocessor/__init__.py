@@ -1,10 +1,6 @@
 # coding=utf-8
 from __future__ import absolute_import
 
-__author__ = "Sven Lohrmann <malnvenshorn@mailbox.org>"
-__license__ = "GNU Affero General Public License http://www.gnu.org/licenses/agpl.html"
-__copyright__ = "Copyright (C) 2017 Sven Lohrmann - Released under terms of the AGPLv3 License"
-
 import io
 import yaml
 
@@ -108,12 +104,12 @@ class MetadataPreprocessorPlugin(octoprint.plugin.EventHandlerPlugin):
 
                 # version check: github repository
                 type="github_release",
-                user="malnvenshorn",
+                user="awenelo",
                 repo="OctoPrint-MetadataPreprocessor",
                 current=self._plugin_version,
 
                 # update method: pip
-                pip="https://github.com/malnvenshorn/OctoPrint-MetadataPreprocessor/archive/{target_version}.zip"
+                pip="https://github.com/awenelo/OctoPrint-MetadataPreprocessor/archive/{target_version}.zip"
             )
         )
 

@@ -6,12 +6,12 @@ from setuptools import setup
 plugin_identifier = "metadatapreprocessor"
 plugin_package = "octoprint_metadatapreprocessor"
 plugin_name = "OctoPrint-MetadataPreprocessor"
-plugin_version = "0.1.0"
+plugin_version = "0.2.1"
 plugin_description = """Uses metadata comments in gcode files to speed up the analyzing process on systems with
                         limited resources like the raspberry pi """
-plugin_author = "Sven Lohrmann"
-plugin_author_email = "malnvenshorn@mailbox.org"
-plugin_url = "https://github.com/malnvenshorn/OctoPrint-MetadataPreprocessor"
+plugin_author = "awenelo"
+plugin_author_email = ""
+plugin_url = "https://github.com/awenelo/OctoPrint-MetadataPreprocessor"
 plugin_license = "AGPLv3"
 plugin_requires = []
 plugin_additional_data = []
