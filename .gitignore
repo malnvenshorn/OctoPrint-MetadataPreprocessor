@@ -1,10 +1,22 @@
-*.pyc
-*.swp
-.idea
-*.iml
-build
-dist
-*.egg*
-.DS_Store
-*.zip
+# Editor specific configuration
 .atom
+
+# OctoPrint data
+.data
+
+# Environment with OctoPrint
+.env
+
+# Byte-compiled files
+__pycache__/
+*.pyc
+
+# Distribution / packaging
+*.egg-info/
+
+# Node
+node_modules/
+
+# Language pack files
+translations/
+*.zip

@@ -1,4 +1,4 @@
-include README.md
-recursive-include octoprint_metadatapreprocessor/templates *
-recursive-include octoprint_metadatapreprocessor/translations *
-recursive-include octoprint_metadatapreprocessor/static *
+include LICENSE README.md
+graft src/*/templates
+graft src/*/static/dist
+graft src/*/translations/*/LC_MESSAGES

@@ -1,25 +1,21 @@
-# coding=utf-8
+import os
+
+from setuptools import find_packages
 from setuptools import setup
 
-########################################################################################################################
-
-plugin_identifier = "metadatapreprocessor"
-plugin_package = "octoprint_metadatapreprocessor"
 plugin_name = "OctoPrint-MetadataPreprocessor"
+plugin_description = "Read metadata block from gcode files to speed up the analyzing process."
 plugin_version = "0.1.0"
-plugin_description = """Uses metadata comments in gcode files to speed up the analyzing process on systems with
-                        limited resources like the raspberry pi """
 plugin_author = "Sven Lohrmann"
 plugin_author_email = "malnvenshorn@mailbox.org"
-plugin_url = "https://github.com/malnvenshorn/OctoPrint-MetadataPreprocessor"
+plugin_url = "https://github.com/malnvenshorn/octoprint-metadatapreprocessor"
 plugin_license = "AGPLv3"
-plugin_requires = []
-plugin_additional_data = []
-plugin_additional_packages = []
-plugin_ignored_packages = []
-additional_setup_parameters = {}
-
-########################################################################################################################
+plugin_identifier = "metadatapreprocessor"
+plugin_package = "octoprint_metadatapreprocessor"
+plugin_source_folder = "src"
+plugin_requires = [
+    "OctoPrint"
+]
 
 try:
     import octoprint_setuptools
@@ -29,24 +25,44 @@ except ImportError:
     import sys
     sys.exit(-1)
 
-setup_parameters = octoprint_setuptools.create_plugin_setup_parameters(
-    identifier=plugin_identifier,
-    package=plugin_package,
+cmdclass = dict()
+
+translation_dir = os.path.join('.', "translations")
+pot_file = os.path.join(translation_dir, "messages.pot")
+
+cmdclass.update(
+    octoprint_setuptools.get_babel_commandclasses(
+        pot_file=pot_file,
+        output_dir=translation_dir,
+        bundled_dir=None,
+        pack_name_prefix=f"{plugin_name}-i18n-",
+        pack_path_prefix=f"_plugins/{plugin_identifier}/",
+    )
+)
+
+setup(
     name=plugin_name,
     version=plugin_version,
     description=plugin_description,
     author=plugin_author,
-    mail=plugin_author_email,
+    author_email=plugin_author_email,
     url=plugin_url,
     license=plugin_license,
-    requires=plugin_requires,
-    additional_packages=plugin_additional_packages,
-    ignored_packages=plugin_ignored_packages,
-    additional_data=plugin_additional_data
+    # Adding new commands
+    cmdclass=cmdclass,
+    # List of our packages
+    packages=find_packages(where=plugin_source_folder, exclude=["*analysis"]),
+    # Map package to directory names
+    package_dir={"": plugin_source_folder},
+    # Include additional data files that are specified in the MANIFEST.in file
+    include_package_data=True,
+    # We have package data that needs to be accessible on the file system, such as templates or static assets
+    # therefore this plugin is not zip_safe.
+    zip_safe=False,
+    install_requires=plugin_requires,
+    # Hook the plugin into the "octoprint.plugin" entry point, mapping the plugin_identifier to the plugin_package.
+    # That way OctoPrint will be able to find the plugin and load it.
+    entry_points={
+        "octoprint.plugin": [f"{plugin_identifier} = {plugin_package}"],
+    },
 )
-
-if len(additional_setup_parameters):
-    from octoprint.util import dict_merge
-    setup_parameters = dict_merge(setup_parameters, additional_setup_parameters)
-
-setup(**setup_parameters)
