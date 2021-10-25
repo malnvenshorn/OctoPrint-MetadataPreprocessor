@@ -1,10 +1,3 @@
-# coding=utf-8
-from __future__ import absolute_import
-
-__author__ = "Sven Lohrmann <malnvenshorn@mailbox.org>"
-__license__ = "GNU Affero General Public License http://www.gnu.org/licenses/agpl.html"
-__copyright__ = "Copyright (C) 2017 Sven Lohrmann - Released under terms of the AGPLv3 License"
-
 import io
 import yaml
 
@@ -87,7 +80,7 @@ class MetadataPreprocessorPlugin(octoprint.plugin.EventHandlerPlugin):
                     result["estimatedPrintTime"] = analysis["total_time"] * 60
                 if analysis["extrusion_length"]:
                     result["filament"] = dict()
-                    for i in xrange(len(analysis["extrusion_length"])):
+                    for i in range(len(analysis["extrusion_length"])):
                         result["filament"]["tool%d" % i] = {
                             "length": analysis["extrusion_length"][i],
                             "volume": analysis["extrusion_volume"][i]
@@ -98,12 +91,12 @@ class MetadataPreprocessorPlugin(octoprint.plugin.EventHandlerPlugin):
             except KeyError as e:
                 self._logger.warn("Missing property {key} in metadata".format(key=str(e)))
 
-    # Softwareupdate hook
+    # Software Update
 
     def get_update_information(self):
-        return dict(
-            metadatapreprocessor=dict(
-                displayName="Metadata Preprocessor",
+        return {
+            self._identifier: dict(
+                displayName=self._plugin_name,
                 displayVersion=self._plugin_version,
 
                 # version check: github repository
@@ -115,17 +108,15 @@ class MetadataPreprocessorPlugin(octoprint.plugin.EventHandlerPlugin):
                 # update method: pip
                 pip="https://github.com/malnvenshorn/OctoPrint-MetadataPreprocessor/archive/{target_version}.zip"
             )
-        )
+        }
 
 
 __plugin_name__ = "Metadata Preprocessor"
 
+__plugin_pythoncompat__ = ">=3.7"
 
-def __plugin_load__():
-    global __plugin_implementation__
-    __plugin_implementation__ = MetadataPreprocessorPlugin()
+__plugin_implementation__ = MetadataPreprocessorPlugin()
 
-    global __plugin_hooks__
-    __plugin_hooks__ = {
-        "octoprint.plugin.softwareupdate.check_config": __plugin_implementation__.get_update_information
-    }
+__plugin_hooks__ = {
+    "octoprint.plugin.softwareupdate.check_config": __plugin_implementation__.get_update_information,
+}
