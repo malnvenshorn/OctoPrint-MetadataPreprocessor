@@ -1,16 +1,37 @@
-# coding=utf-8
-from __future__ import absolute_import
+#!/usr/bin/env python
 
-__author__ = "Sven Lohrmann <malnvenshorn@mailbox.org> based on work by Gina Häußge"
-__license__ = "GNU Affero General Public License http://www.gnu.org/licenses/agpl.html"
-__copyright__ = "Copyright (C) 2017 Sven Lohrmann - Released under terms of the AGPLv3 License"
-
+import os
 import shutil
 import time
 import yaml
 import click
+
 from tempfile import NamedTemporaryFile as tempfile
-from gcodeInterpreter import gcode
+from urllib import request
+
+scriptDirectory = os.path.dirname(os.path.realpath(__file__))
+interpreterUrl = "https://github.com/OctoPrint/OctoPrint/raw/master/src/octoprint/util/gcodeInterpreter.py"
+
+
+def update_interpreter():
+    with (request.urlopen(interpreterUrl) as response,
+          open(os.path.join(scriptDirectory, "gcodeInterpreter.py"), mode="wb") as file):
+        shutil.copyfileobj(response, file)
+
+
+try:
+    from gcodeInterpreter import gcode
+except ImportError:
+    try:
+        update_interpreter()
+        from gcodeInterpreter import gcode
+    except Exception:
+        click.echo(
+            "Failed to download gcodeInterpreter.py from the OctoPrint source. That file is required for this script "
+            "to work. Please download it manually and place it in the same directory as this script. The file can "
+            "be found at: " + interpreterUrl,
+            err=True)
+        exit(1)
 
 
 @click.command()
@@ -41,12 +62,12 @@ def gcode_analysis(path, speedx, speedy, offset, maxt, g90_extruder):
                      max_extruders=maxt,
                      g90_extruder=g90_extruder)
 
-    ystr = yaml.safe_dump(interpreter.get_result(), default_flow_style=False, indent="    ", allow_unicode=True)
+    ystr = yaml.safe_dump(interpreter.get_result(), default_flow_style=False, indent=2, allow_unicode=True)
 
-    with open(path) as fsrc, tempfile(delete=False) as fdst:
+    with open(path) as fsrc, tempfile(mode="w", delete=False) as fdst:
         fdst.write(";OCTOPRINT_METADATA\n")
         for line in ystr.splitlines():
-            fdst.write(";{}\n".format(line))
+            fdst.write(f";{line}\n")
         fdst.write(";OCTOPRINT_METADATA_END\n")
         fdst.write("\n")
         chunk_size = 1024 * 1024 * 10  # 10MB
@@ -54,4 +75,8 @@ def gcode_analysis(path, speedx, speedy, offset, maxt, g90_extruder):
 
     shutil.move(fdst.name, path)
 
-    click.echo("Finished in {}s".format(time.time() - start_time))
+    click.echo(f"Finished in {time.time() - start_time :.2f}s")
+
+
+if __name__ == '__main__':
+    gcode_analysis()
