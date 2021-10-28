@@ -5,7 +5,7 @@ from setuptools import setup
 
 plugin_name = "OctoPrint-MetadataPreprocessor"
 plugin_description = "Read metadata block from gcode files to speed up the analyzing process."
-plugin_version = "0.1.0"
+plugin_version = "0.3.0"
 plugin_author = "Sven Lohrmann"
 plugin_author_email = "malnvenshorn@mailbox.org"
 plugin_url = "https://github.com/malnvenshorn/octoprint-metadatapreprocessor"
@@ -51,7 +51,7 @@ setup(
     # Adding new commands
     cmdclass=cmdclass,
     # List of our packages
-    packages=find_packages(where=plugin_source_folder, exclude=["*analysis"]),
+    packages=find_packages(where=plugin_source_folder),
     # Map package to directory names
     package_dir={"": plugin_source_folder},
     # Include additional data files that are specified in the MANIFEST.in file
