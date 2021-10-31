@@ -149,7 +149,7 @@ def self_update(config):
         perform_restart(True)
 
 
-def gcode_analysis(path, speedx, speedy, offset, max_extruders, g90_extruder):
+def gcode_analysis(path, speedx, speedy, offsets, max_extruders, g90_extruder):
     try:
         from gcodeInterpreter import gcode
     except ImportError:
@@ -159,15 +159,6 @@ def gcode_analysis(path, speedx, speedy, offset, max_extruders, g90_extruder):
             "this script. More information can be found in the wiki at "
             "https://github.com/malnvenshorn/OctoPrint-MetadataPreprocessor/wiki")
         exit(1)
-
-    offsets = offset
-    if offsets is None:
-        offsets = []
-    elif isinstance(offset, tuple):
-        offsets = list(offsets)
-    offsets = [(0, 0)] + offsets
-    if len(offsets) < max_extruders:
-        offsets += [(0, 0)] * (max_extruders - len(offsets))
 
     fileName = os.path.basename(path)
 
@@ -180,7 +171,7 @@ def gcode_analysis(path, speedx, speedy, offset, max_extruders, g90_extruder):
     interpreter.load(path,
                      speedx=speedx,
                      speedy=speedy,
-                     offsets=offsets,
+                     offsets=list(offsets),
                      max_extruders=max_extruders,
                      g90_extruder=g90_extruder)
 
@@ -204,7 +195,7 @@ def gcode_analysis(path, speedx, speedy, offset, max_extruders, g90_extruder):
 @click.option('--verbose', 'verbose', is_flag=True)
 @click.option('--speed-x', 'speedx', type=float, default=6000)
 @click.option('--speed-y', 'speedy', type=float, default=6000)
-@click.option('--offset', 'offset', type=(float, float), multiple=True)
+@click.option('--offset', 'offsets', type=(float, float), multiple=True)
 @click.option('--max-extruders', 'max_extruders', type=int, default=10)
 @click.option('--g90-extruder', 'g90_extruder', is_flag=True)
 @click.argument('path', type=click.Path(exists=True))
