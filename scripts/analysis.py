@@ -149,7 +149,7 @@ def self_update(config):
         perform_restart(True)
 
 
-def gcode_analysis(path, speedx, speedy, offset, maxt, g90_extruder):
+def gcode_analysis(path, speedx, speedy, offset, max_extruders, g90_extruder):
     try:
         from gcodeInterpreter import gcode
     except ImportError:
@@ -166,8 +166,8 @@ def gcode_analysis(path, speedx, speedy, offset, maxt, g90_extruder):
     elif isinstance(offset, tuple):
         offsets = list(offsets)
     offsets = [(0, 0)] + offsets
-    if len(offsets) < maxt:
-        offsets += [(0, 0)] * (maxt - len(offsets))
+    if len(offsets) < max_extruders:
+        offsets += [(0, 0)] * (max_extruders - len(offsets))
 
     fileName = os.path.basename(path)
 
@@ -181,7 +181,7 @@ def gcode_analysis(path, speedx, speedy, offset, maxt, g90_extruder):
                      speedx=speedx,
                      speedy=speedy,
                      offsets=offsets,
-                     max_extruders=maxt,
+                     max_extruders=max_extruders,
                      g90_extruder=g90_extruder)
 
     ystr = yaml.safe_dump(interpreter.get_result(), default_flow_style=False, indent=2, allow_unicode=True)
@@ -205,7 +205,7 @@ def gcode_analysis(path, speedx, speedy, offset, maxt, g90_extruder):
 @click.option('--speed-x', 'speedx', type=float, default=6000)
 @click.option('--speed-y', 'speedy', type=float, default=6000)
 @click.option('--offset', 'offset', type=(float, float), multiple=True)
-@click.option('--max-t', 'maxt', type=int, default=10)
+@click.option('--max-extruders', 'max_extruders', type=int, default=10)
 @click.option('--g90-extruder', 'g90_extruder', is_flag=True)
 @click.argument('path', type=click.Path(exists=True))
 def main(verbose, path, **gcodeParamater):
