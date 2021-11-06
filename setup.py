@@ -1,5 +1,3 @@
-import os
-
 from setuptools import find_packages
 from setuptools import setup
 
@@ -14,31 +12,8 @@ plugin_identifier = "metadatapreprocessor"
 plugin_package = "octoprint_metadatapreprocessor"
 plugin_source_folder = "src"
 plugin_requires = [
-    "OctoPrint"
+    "OctoPrint",
 ]
-
-try:
-    import octoprint_setuptools
-except ImportError:
-    print("Could not import OctoPrint's setuptools, are you sure you are running that under "
-          "the same python installation that OctoPrint is installed under?")
-    import sys
-    sys.exit(-1)
-
-cmdclass = dict()
-
-translation_dir = os.path.join('.', "translations")
-pot_file = os.path.join(translation_dir, "messages.pot")
-
-cmdclass.update(
-    octoprint_setuptools.get_babel_commandclasses(
-        pot_file=pot_file,
-        output_dir=translation_dir,
-        bundled_dir=None,
-        pack_name_prefix=f"{plugin_name}-i18n-",
-        pack_path_prefix=f"_plugins/{plugin_identifier}/",
-    )
-)
 
 setup(
     name=plugin_name,
@@ -48,8 +23,6 @@ setup(
     author_email=plugin_author_email,
     url=plugin_url,
     license=plugin_license,
-    # Adding new commands
-    cmdclass=cmdclass,
     # List of our packages
     packages=find_packages(where=plugin_source_folder),
     # Map package to directory names
