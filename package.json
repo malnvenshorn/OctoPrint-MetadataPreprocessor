@@ -3,14 +3,28 @@
     "src": "src/octoprint_metadatapreprocessor/"
   },
   "scripts": {
-    "browsersync": "npm-run-all -p watch:* syncserver",
-    "watch:py": "cd $npm_package_config_src && onchange '**/*.py' -- npm run octoprint:resync",
-    "syncserver": "cd $npm_package_config_src && browser-sync start --listen localhost --proxy localhost:5000 --files 'static/dist/**' 'templates/**' 'translations/**/*.mo'",
+    "//": " --- GENERAL ---",
+    "start": "run-p serve watch",
+    "reinstall": "rm -rf .env && rm -rf node_modules && python -m venv .env && .env/bin/pip install --upgrade pip && .env/bin/pip install -e git+https://github.com/OctoPrint/OctoPrint.git#egg=octoprint[develop,plugins] && .env/bin/pip install -e .[develop] && npm install",
+
+    "//": " --- LINTING --- ",
+    "lint:py": ".env/bin/flake8",
+    "lint": "run-s lint:*",
+
+    "//": " --- OCTOPRINT --- ",
     "octoprint": ".env/bin/octoprint daemon --pid $(readlink -f .env/octprint.pid) --basedir $(readlink -f .data)",
     "octoprint:start": "npm run octoprint -- start",
     "octoprint:stop": "npm run octoprint -- stop",
     "octoprint:restart": "npm run octoprint -- restart",
-    "octoprint:resync": "npm run octoprint:restart && npx browser-sync reload"
+
+    "//": " --- SERVING --- ",
+    "serve": "npm run octoprint:start && cd $npm_package_config_src && browser-sync start --port 8000 --proxy localhost:5000 --reload-debounce 500 --files 'static/dist/**' 'templates/**' 'translations/**/*.mo'",
+    "kill": "npm run octoprint:stop && lsof -n -i:8000 | grep LISTEN | awk '{print $2}' | xargs kill -SIGTERM",
+    "reload": "npm run octoprint:restart && browser-sync reload",
+
+    "//": " --- WATCHING --- ",
+    "watch:py": "cd $npm_package_config_src && onchange '**/*.py' -- npm run reload",
+    "watch": "run-p watch:*"
   },
   "devDependencies": {
     "browser-sync": "^2.27.5",
