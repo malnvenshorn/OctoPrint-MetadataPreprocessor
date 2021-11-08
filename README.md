@@ -15,7 +15,7 @@ If you upload this file to OctoPrint it will be added to the plugins own impleme
 This plugin can be installed ~~via the bundled [Plugin Manager](https://docs.octoprint.org/en/master/bundledplugins/pluginmanager.html) or~~ manually using the URL below. More information on how to install a plugin can be found on the [OctoPrint website](https://plugins.octoprint.org/help/installation/).
 
 ```
-https://github.com/malnvenshorn/OctoPrint-MetadataPreprocessor/archive/master.zip
+https://github.com/malnvenshorn/OctoPrint-MetadataPreprocessor/releases/latest/download/plugin.tar.gz
 ```
 
 Instructions on how to setup the analysis script can be found in the [wiki](https://github.com/malnvenshorn/OctoPrint-MetadataPreprocessor/wiki).

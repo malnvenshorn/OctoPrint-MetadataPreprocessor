@@ -25,7 +25,7 @@ class MetadataPreprocessorPlugin(OctoPrintPlugin):
                 current=self._plugin_version,
 
                 # update method: pip
-                pip="https://github.com/malnvenshorn/OctoPrint-MetadataPreprocessor/archive/{target_version}.zip",
+                pip="https://github.com/malnvenshorn/OctoPrint-MetadataPreprocessor/releases/download/{target_version}/plugin.tar.gz",  # noqa
             )
         }
 
