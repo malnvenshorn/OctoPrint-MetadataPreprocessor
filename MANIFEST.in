@@ -1,4 +1,6 @@
-include LICENSE README.md
+include LICENSE
+include README.md
 graft src/*/templates
 graft src/*/static/dist
 graft src/*/translations/*/LC_MESSAGES
+global-exclude *.pyc

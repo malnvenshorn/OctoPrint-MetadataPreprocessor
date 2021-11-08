@@ -1,0 +1,13 @@
+name: Publish Release
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  release-on-github:
+    name: Release package on Github
+    uses: malnvenshorn/common/.github/workflows/publish-python-packages-on-github.yaml@master
+    with:
+      asset_name: plugin.tar.gz
