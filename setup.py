@@ -14,6 +14,11 @@ plugin_source_folder = "src"
 plugin_requires = [
     "OctoPrint",
 ]
+plugin_extras_require = {
+    "develop": {
+        "flake8 >= 4.0",
+    },
+}
 
 setup(
     name=plugin_name,
@@ -33,6 +38,7 @@ setup(
     # therefore this plugin is not zip_safe.
     zip_safe=False,
     install_requires=plugin_requires,
+    extras_require=plugin_extras_require,
     # Hook the plugin into the "octoprint.plugin" entry point, mapping the plugin_identifier to the plugin_package.
     # That way OctoPrint will be able to find the plugin and load it.
     entry_points={
