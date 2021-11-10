@@ -11,3 +11,7 @@ jobs:
     uses: malnvenshorn/common/.github/workflows/publish-python-packages-on-github.yaml@master
     with:
       asset_name: plugin.tar.gz
+      version_from_tag: true
+      version_file: setup.py
+      version_search: plugin_version = ".*"
+      version_replace: plugin_version = "{version}"

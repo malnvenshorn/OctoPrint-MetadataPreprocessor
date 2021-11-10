@@ -3,7 +3,7 @@ from setuptools import setup
 
 plugin_name = "OctoPrint-MetadataPreprocessor"
 plugin_description = "Read metadata block from gcode files to speed up the analyzing process."
-plugin_version = "0.3.0"
+plugin_version = "dev"
 plugin_author = "Sven Lohrmann"
 plugin_author_email = "malnvenshorn@mailbox.org"
 plugin_url = "https://github.com/malnvenshorn/octoprint-metadatapreprocessor"
@@ -11,9 +11,11 @@ plugin_license = "AGPLv3"
 plugin_identifier = "metadatapreprocessor"
 plugin_package = "octoprint_metadatapreprocessor"
 plugin_source_folder = "src"
+
 plugin_requires = [
     "OctoPrint",
 ]
+
 plugin_extras_require = {
     "develop": {
         "flake8 >= 4.0",
